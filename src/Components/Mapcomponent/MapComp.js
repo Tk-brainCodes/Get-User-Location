@@ -1,50 +1,59 @@
 import React, { useEffect, useState } from 'react'
 import GoogleMapReact from 'google-map-react'
+import Marker from '../Marker/Marker'
 
 const MapComp = () => {
   const [center] = useState({
-    lat: 9.072264,
-    lng: 7.491302
+    lat: 6.5243793,
+    lng: 3.3792057
   })
-  const [zoom] = useState(10)
+  const [zoom] = useState(11)
+  const [location, setLocation] = useState(center)
+  const [position, setPosition] = useState(center)
 
-  const [newlocation, setNewLocation] = useState(center)
-
-  const getLocation = () => {
+  useEffect(() => {
     if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
+        let location = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        setLocation((prevState, props) => {
+          let newState = { ...prevState }
+          newState.center = location
+          newState.location = location
+          return newState
+        })
+      })
+    }
+  })
+
+  const getUserPosition = () => {
+    if (navigator && navigator.geolocation) {
+      navigator.geolocation.watchPosition(position => {
         const coords = position.coords
-        setNewLocation({
+        setPosition({
           lat: coords.latitude,
           lng: coords.longitude
         })
       })
+    } else {
+      console.log('there is a problem')
     }
-  }
-
-  const renderMaker = (map, maps) => {
-    let marker = new maps.Marker({
-      position: newlocation,
-      map,
-      title: 'Current Location'
-    })
-    return marker
   }
 
   return (
     <div>
       {/*Use bootstrap for styling*/}
+      <button onClick={getUserPosition}>Find me</button>
       <div style={{ width: '100%', height: '100vh' }}>
-        <button onClick={getLocation}>FIND</button>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyDkPntFeeCSS9vwYnRN0G3_lWVLXsNOU2s' }}
-          defaultCenter={center}
+          defaultCenter={location}
           defaultZoom={zoom}
-          yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={({ map, maps }) => {
-            renderMaker(map, maps)
-          }}
-        ></GoogleMapReact>
+        >
+          <Marker lat={position.lat} lng={position.lng} text='Point' />
+        </GoogleMapReact>
       </div>
     </div>
   )
