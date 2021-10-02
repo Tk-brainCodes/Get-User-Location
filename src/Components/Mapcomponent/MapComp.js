@@ -3,13 +3,10 @@ import GoogleMapReact from 'google-map-react'
 import Marker from '../Marker/Marker'
 
 const MapComp = () => {
-  const [center] = useState({
-    lat: 6.5243793,
-    lng: 3.3792057
-  })
-  const [zoom] = useState(11)
-  const [location, setLocation] = useState(center)
-  const [position, setPosition] = useState(center)
+  const [zoom] = useState(10)
+  const [zoomin, setZoomIn] = useState(11)
+  const [location, setLocation] = useState({})
+  const [position, setPosition] = useState({})
 
   useEffect(() => {
     if (navigator && navigator.geolocation) {
@@ -18,11 +15,9 @@ const MapComp = () => {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }
-        setLocation((prevState, props) => {
-          let newState = { ...prevState }
-          newState.center = location
-          newState.location = location
-          return newState
+        setLocation({
+          lat: location.lat,
+          lng: location.lng
         })
       })
     }
@@ -38,8 +33,9 @@ const MapComp = () => {
         })
       })
     } else {
-      console.log('there is a problem')
+      console.log('something went wrong')
     }
+    setZoomIn(20)
   }
 
   return (
@@ -51,8 +47,11 @@ const MapComp = () => {
           bootstrapURLKeys={{ key: process.env.REACT_APP_API_KEY }}
           defaultCenter={location}
           defaultZoom={zoom}
+          center={location}
+          zoom={zoomin}
         >
-          <Marker lat={position.lat} lng={position.lng} text='Point' />
+          {/*Card to display location information*/}
+          <Marker lat={position.lat} lng={position.lng} text="marker" />
         </GoogleMapReact>
       </div>
     </div>
