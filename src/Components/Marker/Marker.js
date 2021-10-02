@@ -1,20 +1,20 @@
 import React from 'react'
+import MapIcon from './icon.svg'
 
-const AnyReactComponent = ({ text }) => {
+const AnyReactComponent = () => {
   return (
     <div
       style={{
-        width: '50px',
-        height: 'auto !important',
-        background: 'red',
+        width: '40px',
+        height: '40px',
         padding: '10px',
         color: 'white',
         display: 'flex',
-        alignItemns : 'center',
+        alignItemns: 'center',
         justifyContent: 'center'
       }}
     >
-      {text}
+      <img src={MapIcon} alt='marker location icon' />
     </div>
   )
 }
