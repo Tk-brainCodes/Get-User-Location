@@ -48,7 +48,7 @@ const MapComp = () => {
       <button onClick={getUserPosition}>Find me</button>
       <div style={{ width: '100%', height: '100vh' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyDkPntFeeCSS9vwYnRN0G3_lWVLXsNOU2s' }}
+          bootstrapURLKeys={{ key: process.env.REACT_APP_API_KEY }}
           defaultCenter={location}
           defaultZoom={zoom}
         >
