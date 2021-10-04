@@ -1,8 +1,9 @@
 import React, { lazy, Suspense } from 'react'
 import './App.css'
 import Spinner from 'react-bootstrap/Spinner'
-require('dotenv').config()
 const MapComp = lazy(() => import('./Components/Mapcomponent/MapComp'))
+require('dotenv').config()
+
 
 function App () {
   return (

@@ -78,7 +78,7 @@ const MapComp = () => {
         </nav>{' '}
         <br />
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_API_KEY }}
+          bootstrapURLKeys={{ key: 'AIzaSyDkPntFeeCSS9vwYnRN0G3_lWVLXsNOU2s' }}
           defaultCenter={location}
           defaultZoom={zoom}
           center={location}
